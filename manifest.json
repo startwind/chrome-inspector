@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Development Audit",
+  "version": "1.2.0",
+  "description": "Überwacht Requests, führt modulare Checks aus und zeigt nur Findings pro aktivem Tab.",
+  "permissions": [
+    "storage",
+    "webRequest",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Development Audit"
+  },
+  "devtools_page": "devtools.html"
+}

@@ -1,0 +1,1 @@
+chrome.devtools.panels.create('Inspection','icons/icon16.png','panel.html',()=>{});
