@@ -11,7 +11,7 @@ export class LargeResponseCheck {
         const size = parseInt(lenHeader, 10);
         if (Number.isNaN(size)) return false;
 
-        const oneMB = 1024;
+        const oneMB = 1024 * 1024;
 
         if (size > oneMB) {
             let message = `response size exceeds 1 MB (${(size / 1024 / 1024).toFixed(2)} MB)`;
