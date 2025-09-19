@@ -4,6 +4,7 @@ const refreshBtn = document.getElementById('refresh');
 const filterUrl = document.getElementById('filterUrl');
 const filterMethod = document.getElementById('filterMethod');
 const filterSeverity = document.getElementById('filterSeverity');
+const filterThirdParty = document.getElementById('filterThirdParty');
 const preserveLog = document.getElementById('preserveLog');
 const statusEl = document.getElementById('status');
 
@@ -82,10 +83,21 @@ function escapeHtml(s = '') {
     return s.replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;"}[c]));
 }
 
+function isThirdParty(r) {
+    try {
+        const url = new URL(r.url);
+        const pageUrl = new URL(r.pageUrl);
+        return url.hostname !== pageUrl.hostname;
+    } catch (e) {
+        return false;
+    }
+}
+
 function render() {
     const urlPart = (filterUrl.value || '').toLowerCase();
     const method = filterMethod.value;
     const severity = filterSeverity.value;
+    const thirdParty = filterThirdParty.checked;
     const rows = data.filter(r => {
         if (r.tabId !== currentTabId) return false;
         if ((r.failedChecks || []).length === 0) return false;
@@ -98,6 +110,8 @@ function render() {
 
         if (severity && !appliedSeverities.includes(severity)) return false;
 
+        if(!thirdParty && isThirdParty(r)) return false;
+
         const okUrl = !urlPart || (r.url || '').toLowerCase().includes(urlPart);
         const okMethod = !method || r.method === method;
         return okUrl && okMethod;
@@ -105,19 +119,15 @@ function render() {
 
     statusEl.innerHTML = `<strong>${rows.length}</strong> anomalies found`;
 
-    const table = document.createElement('div');
-    table.classList.add('findingsBlock');
+    const container = document.createElement('div');
+    container.className = 'findingsBlock';
 
-    // table.innerHTML = '<thead><tr><th>Time</th><th>Method</th><th>URL</th><th>Status</th><th>Duration</th><th>Findings</th></tr></thead>';
-    const div = document.createElement('div');
     rows.forEach((r, i) => {
-        div.insertAdjacentHTML('beforeend', rowHtml(r, i));
+        container.insertAdjacentHTML('beforeend', rowHtml(r, i));
     });
 
-    table.appendChild(div);
-
     list.innerHTML = '';
-    list.appendChild(table);
+    list.appendChild(container);
 
     // toggle handling
     list.querySelectorAll('.toggle').forEach(t => {
@@ -142,5 +152,6 @@ async function load() {
 filterUrl.addEventListener('input', render);
 filterMethod.addEventListener('change', render);
 filterSeverity.addEventListener('change', render);
+filterThirdParty.addEventListener('click', render);
 
 load();
