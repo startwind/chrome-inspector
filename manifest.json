@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Development Audit",
-  "version": "1.2.0",
-  "description": "Überwacht Requests, führt modulare Checks aus und zeigt nur Findings pro aktivem Tab.",
+  "name": "Startwind Inspector",
+  "version": "1.0.0",
+  "description": "Monitors requests, runs modular checks, and displays only findings for the active tab.",
   "permissions": [
     "storage",
     "webRequest",
@@ -17,7 +17,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Development Audit"
+    "default_title": "Startwind Inspector"
   },
   "devtools_page": "devtools.html"
 }
