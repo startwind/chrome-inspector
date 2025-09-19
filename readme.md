@@ -29,7 +29,7 @@ quickly identify and address performance or security problems without having to 
 Download and unpack the latest version from GitHub
 https://github.com/startwind/chrome-inspector/archive/refs/heads/main.zip
 
-Switch on developer mode in Chrome (chrome://extensions) and load the extension from the unpacked directory.
+Switch on developer mode in Chrome ([chrome://extensions](chrome://extensions)) and load the extension from the unpacked directory.
 
 ## Usage
 
