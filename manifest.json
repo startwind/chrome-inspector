@@ -15,9 +15,5 @@
     "service_worker": "background.js",
     "type": "module"
   },
-  "action": {
-    "default_popup": "popup.html",
-    "default_title": "Startwind Inspector"
-  },
   "devtools_page": "devtools.html"
 }
