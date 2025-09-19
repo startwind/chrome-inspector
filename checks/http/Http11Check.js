@@ -1,11 +1,10 @@
 export class Http11Check {
     name = "Http11Check";
-    severity = "medium";
+    severity = "low";
 
     async check(req) {
         try {
             const headers = req.responseHeaders || {};
-            // Manche Browser geben es so zurück:
             const version = headers[":version"] || headers["version"];
             if (version && version.toUpperCase().includes("HTTP/1.1")) {
                 return {
