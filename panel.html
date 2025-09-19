@@ -146,6 +146,10 @@
             font-family: monospace;
             margin-bottom: 3px;
             font-weight: bold;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .finding .url {
@@ -259,10 +263,10 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: Canvas;      /* passt sich Light/Dark-Mode an */
+            background: Canvas; /* passt sich Light/Dark-Mode an */
             color: CanvasText;
-            z-index: 1000;           /* liegt über dem Rest */
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000; /* liegt über dem Rest */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         #list {

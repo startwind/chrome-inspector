@@ -1,45 +1,139 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Development Audit</title>
-  <style>
-:root { color-scheme: light dark; }
-body { font-family: system-ui, sans-serif; padding: 8px; background: Canvas; color: CanvasText; }
-@media (prefers-color-scheme: dark) {
-  body { background: #202124; color: #e8eaed; }
-}
-.header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
-.title { font-weight: 600; }
-.preserve { font-size: 12px; opacity: .9; }
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: 6px 8px; border-bottom: 1px solid; border-bottom-color: rgba(128,128,128,.2); text-align: left; font-size: 12px; vertical-align: top; }
+    <meta charset="utf-8">
+    <title>Development Audit</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+        }
 
-    :root { color-scheme: light dark; }
-    body { font-family: system-ui, sans-serif; padding: 8px; width: 560px; padding: 12px; background: Canvas; color: CanvasText; }
-    button { margin-right: 8px; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { padding: 6px 8px; border-bottom: 1px solid CanvasText; border-bottom-color: color-mix(in srgb, CanvasText 15%, transparent); text-align: left; font-size: 12px; vertical-align: top; }
-    .controls { margin-bottom: 8px; }
-    .findings { margin: 6px 0 0 0; padding-left: 16px; }
-    .finding { margin: 2px 0; }
-    .req-url { max-width: 360px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display:inline-block; vertical-align: top; }
-    .toggle { cursor: pointer; user-select: none; margin-right: 6px; }
-    .badge { display:inline-block; padding: 0 6px; border-radius: 999px; background: CanvasText; color: Canvas; font-size: 11px; line-height: 18px; }
-  </style>
+        body {
+            font-family: system-ui, sans-serif;
+            padding: 8px;
+            background: Canvas;
+            color: CanvasText;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #202124;
+                color: #e8eaed;
+            }
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .title {
+            font-weight: 600;
+        }
+
+        .preserve {
+            font-size: 12px;
+            opacity: .9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 6px 8px;
+            border-bottom: 1px solid;
+            border-bottom-color: rgba(128, 128, 128, .2);
+            text-align: left;
+            font-size: 12px;
+            vertical-align: top;
+        }
+
+        :root {
+            color-scheme: light dark;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            width: 560px;
+            padding: 12px;
+            background: Canvas;
+            color: CanvasText;
+        }
+
+        button {
+            margin-right: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 6px 8px;
+            border-bottom: 1px solid CanvasText;
+            border-bottom-color: color-mix(in srgb, CanvasText 15%, transparent);
+            text-align: left;
+            font-size: 12px;
+            vertical-align: top;
+        }
+
+        .controls {
+            margin-bottom: 8px;
+        }
+
+        .findings {
+            margin: 6px 0 0 0;
+            padding-left: 16px;
+        }
+
+        .finding {
+            margin: 2px 0;
+        }
+
+        .req-url {
+            max-width: 360px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .toggle {
+            cursor: pointer;
+            user-select: none;
+            margin-right: 6px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0 6px;
+            border-radius: 999px;
+            background: CanvasText;
+            color: Canvas;
+            font-size: 11px;
+            line-height: 18px;
+        }
+    </style>
 </head>
 <body>
-  <div class="header">
-  <div class="title">Development Audit</div>
-  <label class="preserve"><input type="checkbox" id="preserveLog" /> Preserve log</label>
+<div class="header">
+    <div class="title">Development Audit</div>
+    <label class="preserve"><input type="checkbox" id="preserveLog"/> Preserve log</label>
 </div>
-  <div class="controls">
+<div class="controls">
     <button id="refresh">Refresh</button>
     <button id="download">Download JSON</button>
     <button id="clear">Clear</button>
-  </div>
-  <div id="summary"></div>
-  <div id="list"></div>
-  <script src="popup.js"></script>
+</div>
+<div id="summary"></div>
+<div id="list"></div>
+<script src="popup.js"></script>
 </body>
 </html>

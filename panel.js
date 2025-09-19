@@ -54,6 +54,8 @@ function rowHtml(r, idx) {
         tags.push('XHR');
     } else if (r.type === 'script') {
         tags.push('JavaScript');
+    } else if (r.type === 'main_frame') {
+        tags.push('Website');
     } else {
         tags.push(r.type);
     }
@@ -110,7 +112,7 @@ function render() {
 
         if (severity && !appliedSeverities.includes(severity)) return false;
 
-        if(!thirdParty && isThirdParty(r)) return false;
+        if (!thirdParty && isThirdParty(r)) return false;
 
         const okUrl = !urlPart || (r.url || '').toLowerCase().includes(urlPart);
         const okMethod = !method || r.method === method;
