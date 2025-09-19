@@ -33,11 +33,6 @@
             font-weight: 600;
         }
 
-        .preserve {
-            font-size: 12px;
-            opacity: .9;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -207,19 +202,12 @@
             font-size: 11px;
         }
 
-        .preserve {
-            margin-top: 8px;
-            padding: 8px;
-        }
-
         .header {
             margin-top: 8px;
         }
 
         .controls {
             padding: 8px;
-            margin: 8px;
-            border-radius: 5px;
             background-color: #2d3436;
         }
 
@@ -252,39 +240,45 @@
         .controls label {
             display: inline-flex;
             align-items: center; /* richtet Text und Checkbox mittig aus */
-            gap: 6px; /* kleiner Abstand zwischen Box und Text */
+            gap: 6px;
         }
 
         #includeThirdParty {
-            margin: 0; /* Browser-Default-Margin entfernen */
+            margin: 0;
         }
 
         .top {
             position: fixed;
             top: 0;
             width: 100%;
-            background: Canvas; /* passt sich Light/Dark-Mode an */
             color: CanvasText;
-            z-index: 1000; /* liegt über dem Rest */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
 
         #list {
-            margin-top: 104px; /* Platz für .top reservieren */
+            margin-top: 60px;
+        }
 
+        .controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            background-color: #2d3436;
+        }
+        .controls .preserve {
+            margin-left: auto;
         }
     </style>
 </head>
 <body>
 <div class="top">
-
-    <div class="header">
-        <label class="preserve"><input type="checkbox" id="preserveLog"/> Preserve log</label>
-    </div>
-
     <div class="controls">
         <button id="refresh" style="display: none">Refresh</button>
+
         <label>Filter URL <input id="filterUrl" class="grow" placeholder="/api/"/></label>
+
         <label style="display: none">Method:
             <select id="filterMethod">
                 <option value="">(all)</option>
@@ -295,6 +289,7 @@
                 <option>DELETE</option>
             </select>
         </label>
+
         <label>Severity:
             <select id="filterSeverity">
                 <option value="">(all)</option>
@@ -303,11 +298,16 @@
                 <option>high</option>
             </select>
         </label>
+
         <label>
             <input type="checkbox" id="filterThirdParty"/>
             include third-party
         </label>
+
         <span id="status"></span>
+
+        <!-- NEU: rechts in derselben Box -->
+        <label class="preserve"><input type="checkbox" id="preserveLog"/> Preserve log</label>
     </div>
 </div>
 <div id="list"></div>
