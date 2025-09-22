@@ -5,6 +5,7 @@ import {InsecureRequestCheck} from "./http/InsecureRequestCheck.js";
 import {MissingCacheHeaderCheck} from "./http/MissingCacheHeaderCheck.js";
 import {Http11Check} from "./http/Http11Check.js";
 import {ApacheVersionCheck} from "./http/header/ApacheVersionCheck.js";
+import {FrameEmbeddingCheck} from "./security/FrameEmbeddingCheck.js";
 
 export const checks = [
     new StatusCodeCheck(),
@@ -15,5 +16,8 @@ export const checks = [
     new Http11Check(),
 
     // http -> header
-    new ApacheVersionCheck()
+    new ApacheVersionCheck(),
+
+    // security
+    new FrameEmbeddingCheck()
 ];

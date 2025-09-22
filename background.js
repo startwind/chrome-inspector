@@ -8,6 +8,7 @@ const ports = new Set();
 function pushLog(rec) {
     LOGS.push(rec);
     if (LOGS.length > MAX_LOGS) LOGS.shift();
+
     for (const port of ports) {
         try {
             port.postMessage({type: "NEW_RECORD", record: rec});
@@ -89,7 +90,7 @@ chrome.webRequest.onCompleted.addListener(
         starts.delete(d.requestId);
         responseHeadersMap.delete(d.requestId);
     },
-    { urls: ["<all_urls>"] },
+    {urls: ["<all_urls>"]},
     ["responseHeaders"]
 );
 
