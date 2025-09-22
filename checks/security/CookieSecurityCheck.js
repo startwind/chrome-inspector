@@ -2,15 +2,13 @@ export class CookieSecurityCheck {
     name = "Cookie Security"
 
     async check(record) {
-        // Nur auf Responses mit Set-Cookie prüfen
         const headers = record.responseHeaders || {};
         const setCookieHeader = headers["set-cookie"];
 
         if (!setCookieHeader) {
-            return false; // keine Cookies gesetzt → nichts zu prüfen
+            return false;
         }
 
-        // Manche Antworten enthalten mehrere Set-Cookie-Header
         const cookies = Array.isArray(setCookieHeader)
             ? setCookieHeader
             : [setCookieHeader];
