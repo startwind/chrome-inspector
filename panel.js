@@ -87,6 +87,7 @@ function escapeHtml(s = '') {
 
 function isThirdParty(r) {
     try {
+        if (!r.pageUrl && r.type !== 'main_frame') return true;
         // if (!r.pageUrl /*|| r.pageUrl === 'chrome://newtab/'*/) return false
         const url = new URL(r.url);
         const pageUrl = new URL(r.pageUrl);
