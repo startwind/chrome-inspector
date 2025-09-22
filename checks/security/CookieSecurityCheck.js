@@ -8,7 +8,7 @@ export class CookieSecurityCheck {
 
         if (!setCookieHeader) {
             return false; // keine Cookies gesetzt → nichts zu prüfen
-        }s
+        }
 
         // Manche Antworten enthalten mehrere Set-Cookie-Header
         const cookies = Array.isArray(setCookieHeader)
