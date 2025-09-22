@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Startwind Inspector",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Monitors requests, runs modular checks, and displays only findings for the active tab.",
   "permissions": [
     "storage",
