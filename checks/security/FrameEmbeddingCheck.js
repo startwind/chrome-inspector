@@ -1,5 +1,6 @@
 export class FrameEmbeddingCheck {
     name = "Frame Embedding Forbidden";
+
     async check(record) {
 
         if (record.type !== "main_frame") {

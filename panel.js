@@ -87,6 +87,7 @@ function escapeHtml(s = '') {
 
 function isThirdParty(r) {
     try {
+        if (!r.pageUrl || r.pageUrl === 'chrome://newtab/') return false
         const url = new URL(r.url);
         const pageUrl = new URL(r.pageUrl);
         return url.hostname !== pageUrl.hostname;
@@ -101,6 +102,7 @@ function render() {
     const severity = filterSeverity.value;
     const thirdParty = filterThirdParty.checked;
     const rows = data.filter(r => {
+        // return true
         if (r.tabId !== currentTabId) return false;
         if ((r.failedChecks || []).length === 0) return false;
 
