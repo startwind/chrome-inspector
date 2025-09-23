@@ -7,6 +7,7 @@ const filterSeverity = document.getElementById('filterSeverity');
 const filterThirdParty = document.getElementById('filterThirdParty');
 const preserveLog = document.getElementById('preserveLog');
 const statusEl = document.getElementById('status');
+const clearBtn = document.getElementById('clearBtn');
 
 let data = [];
 const currentTabId = chrome.devtools.inspectedWindow.tabId;
@@ -148,6 +149,13 @@ function render() {
     });
 }
 
+async function clear() {
+    await chrome.runtime.sendMessage({type: 'CLEAR_LOGS', filterTabId: currentTabId});
+    console.log('clear')
+    data = [];
+    render();
+}
+
 async function load() {
     await fetchInitial();
     render();
@@ -158,5 +166,6 @@ filterUrl.addEventListener('input', render);
 filterMethod.addEventListener('change', render);
 filterSeverity.addEventListener('change', render);
 filterThirdParty.addEventListener('click', render);
+clearBtn.addEventListener('click', clear)
 
 load();

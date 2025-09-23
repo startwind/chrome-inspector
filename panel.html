@@ -268,7 +268,8 @@
             margin-bottom: 20px;
             background-color: #2d3436;
         }
-        .controls .preserve {
+
+        .controls .right {
             margin-left: auto;
         }
     </style>
@@ -307,8 +308,15 @@
 
         <span id="status"></span>
 
-        <!-- NEU: rechts in derselben Box -->
-        <label class="preserve"><input type="checkbox" id="preserveLog"/> Preserve log</label>
+
+        <div class="right" style="display: flex; align-items: center;">
+            <label class="preserve">
+                <input type="checkbox" id="preserveLog"/> Preserve log
+            </label>
+            <div id="clearBtn" style="cursor: pointer; margin-left: 3px; padding-left: 3px; border-left: 2px solid #202124;">
+                clear
+            </div>
+        </div>
     </div>
 </div>
 <div id="list"></div>
