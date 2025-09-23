@@ -48,7 +48,8 @@ chrome.webRequest.onHeadersReceived.addListener(
 
 async function runChecks(record) {
     const failedChecks = [];
-    for (const c of checks) {
+    const networkChecks = checks.network;
+    for (const c of networkChecks) {
         const res = await c.check(record);
         if (res) failedChecks.push(res);
     }

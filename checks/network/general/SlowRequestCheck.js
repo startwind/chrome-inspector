@@ -1,4 +1,4 @@
-import {getConfig} from "../../utils/config.js";
+import {getConfig} from "../../../utils/config.js";
 
 export class SlowRequestCheck {
     name = "SlowRequestCheck";

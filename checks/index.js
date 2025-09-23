@@ -1,25 +1,27 @@
-import {StatusCodeCheck} from './general/StatusCodeCheck.js';
-import {SlowRequestCheck} from './general/SlowRequestCheck.js';
-import {LargeResponseCheck} from './general/LargeResponseCheck.js';
-import {InsecureRequestCheck} from "./http/InsecureRequestCheck.js";
-import {MissingCacheHeaderCheck} from "./http/MissingCacheHeaderCheck.js";
-import {Http11Check} from "./http/Http11Check.js";
-import {ApacheVersionCheck} from "./http/header/ApacheVersionCheck.js";
-import {FrameEmbeddingCheck} from "./security/FrameEmbeddingCheck.js";
-import {CookieSecurityCheck} from "./security/CookieSecurityCheck.js";
+import {StatusCodeCheck} from './network/general/StatusCodeCheck.js';
+import {SlowRequestCheck} from './network/general/SlowRequestCheck.js';
+import {LargeResponseCheck} from './network/general/LargeResponseCheck.js';
+import {InsecureRequestCheck} from "./network/http/InsecureRequestCheck.js";
+import {MissingCacheHeaderCheck} from "./network/http/MissingCacheHeaderCheck.js";
+import {Http11Check} from "./network/http/Http11Check.js";
+import {ApacheVersionCheck} from "./network/http/header/ApacheVersionCheck.js";
+import {FrameEmbeddingCheck} from "./network/security/FrameEmbeddingCheck.js";
+import {CookieSecurityCheck} from "./network/security/CookieSecurityCheck.js";
 
-export const checks = [
-    new StatusCodeCheck(),
-    new SlowRequestCheck(),
-    new LargeResponseCheck(),
-    new InsecureRequestCheck(),
-    new MissingCacheHeaderCheck(),
-    new Http11Check(),
+export const checks = {
+    network: [
+        new StatusCodeCheck(),
+        new SlowRequestCheck(),
+        new LargeResponseCheck(),
+        new InsecureRequestCheck(),
+        new MissingCacheHeaderCheck(),
+        new Http11Check(),
 
-    // http -> header
-    new ApacheVersionCheck(),
+        // http -> header
+        new ApacheVersionCheck(),
 
-    // security
-    new FrameEmbeddingCheck(),
-    new CookieSecurityCheck()
-];
+        // security
+        new FrameEmbeddingCheck(),
+        new CookieSecurityCheck()
+    ]
+}
