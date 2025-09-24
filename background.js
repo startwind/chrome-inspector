@@ -63,10 +63,20 @@ chrome.webRequest.onCompleted.addListener(
         const duration = s ? Date.now() - s.time : undefined;
 
         let pageUrl = '';
+        let content = ''
+
         if (d.tabId >= 0) {
             try {
                 const tab = await chrome.tabs.get(d.tabId);
                 pageUrl = tab.url;
+
+                if (d.type === 'main_frame') {
+                    const [result] = await chrome.scripting.executeScript({
+                        target: {tabId: tab.id, frameIds: [0]}, // frameId 0 = main_frame
+                        func: () => document.documentElement.outerHTML
+                    });
+                    content = result?.result ?? '';
+                }
             } catch (e) {
                 pageUrl = ''
             }
@@ -78,6 +88,7 @@ chrome.webRequest.onCompleted.addListener(
             statusCode: d.statusCode,
             type: d.type,
             time: s ? s.time : Date.now(),
+            content,
             duration,
             tabId: d.tabId,
             frameId: d.frameId,
@@ -108,7 +119,8 @@ chrome.webRequest.onErrorOccurred.addListener(
             tabId: d.tabId,
             frameId: d.frameId,
             error: d.error,
-            responseHeaders: responseHeadersMap.get(d.requestId)
+            responseHeaders: responseHeadersMap.get(d.requestId),
+            content: ''
         };
         await runChecks(record);
         starts.delete(d.requestId);

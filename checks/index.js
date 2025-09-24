@@ -7,6 +7,7 @@ import {Http11Check} from "./network/http/Http11Check.js";
 import {ApacheVersionCheck} from "./network/http/header/ApacheVersionCheck.js";
 import {FrameEmbeddingCheck} from "./network/security/FrameEmbeddingCheck.js";
 import {CookieSecurityCheck} from "./network/security/CookieSecurityCheck.js";
+import {StopWordCheck} from "./network/html/StopWordCheck.js";
 
 export const checks = {
     network: [
@@ -22,6 +23,9 @@ export const checks = {
 
         // security
         new FrameEmbeddingCheck(),
-        new CookieSecurityCheck()
+        new CookieSecurityCheck(),
+
+        // html
+        new StopWordCheck(),
     ]
 }
