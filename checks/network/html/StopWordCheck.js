@@ -1,6 +1,6 @@
 export class StopWordCheck {
     name = "StopWordCheck";
-    severity = "low";
+    severity = "high";
 
     words = [
         "sex",
@@ -16,15 +16,20 @@ export class StopWordCheck {
     async check(req) {
         if (req.content) {
             const content = req.content.toLowerCase();
-            let found = []
-            for (const word of this.words) {
-                if (content.includes(' ' + word)) {
-                    found.push(word);
-                }
+
+            const regex = new RegExp(`\\b(${this.words.join("|")})\\b`, "gi");
+            const found = new Set();
+
+            let match;
+            while ((match = regex.exec(content)) !== null) {
+                found.add(match[1]);
             }
-            if (found.length > 0) {
+
+            const uniqueWords = [...found];
+
+            if (uniqueWords.length > 0) {
                 return {
-                    message: `found stop words: ${found.join(", ")}`,
+                    message: `website could be hacked: found stop words (${uniqueWords.join(", ")})`,
                     severity: this.severity
                 };
             }
