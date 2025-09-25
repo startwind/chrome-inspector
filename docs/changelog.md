@@ -12,3 +12,11 @@
 ## 1.0.0
 
 - Initial release
+- Initial checks:
+  - **General/StatusCodeCheck** - Checks for HTTP status codes >= 400
+  - **General/SlowRequestCheck** - Checks for requests taking longer than 800 ms
+  - **General/LargeResponseCheck** - Checks for responses larger than 1 MB
+  - **HTTP/InsecureRequestCheck** - Checks for requests over HTTP
+  - **HTTP/MissingCacheHeaderCheck** - Checks for static resources without cache headers
+  - **HTTP/Http11Check** - Checks for HTTP/1.1 connections
+  - **HTTP/header/ApacheVersionCheck** - Checks for Apache version in server header
