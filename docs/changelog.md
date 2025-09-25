@@ -11,7 +11,9 @@
 
 ## 1.0.0
 
-- Initial release
+- Initial features:
+  - Filtering by URL, method, severity, and third-party requests
+  - Preserving logs across navigations
 - Initial checks:
   - **General/StatusCodeCheck** - Checks for HTTP status codes >= 400
   - **General/SlowRequestCheck** - Checks for requests taking longer than 800 ms
