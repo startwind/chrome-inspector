@@ -46,6 +46,9 @@ async function fetchInitial() {
 }
 
 function rowHtml(r, idx) {
+
+    console.log('record', r)
+
     const fails = r.failedChecks || [];
     const title = '<ul>' + fails.map(f => `<li class="finding-${f.severity}">${escapeHtml(f.message)}</li>`).join('') + '</ul>';
 

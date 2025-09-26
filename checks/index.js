@@ -8,6 +8,7 @@ import {ApacheVersionCheck} from "./request/http/header/ApacheVersionCheck.js";
 import {FrameEmbeddingCheck} from "./request/security/FrameEmbeddingCheck.js";
 import {CookieSecurityCheck} from "./request/security/CookieSecurityCheck.js";
 import {StopWordCheck} from "./request/html/StopWordCheck.js";
+import {RequestCountCheck} from "./frame/RequestCountCheck.js";
 
 export const checks = {
     request: [
@@ -27,5 +28,8 @@ export const checks = {
 
         // html
         new StopWordCheck(),
+    ],
+    frame: [
+        new RequestCountCheck()
     ]
 }

@@ -5,6 +5,7 @@ const MAX_LOGS = 2000;
 const LOGS = [];
 const ports = new Set();
 let requestCount = 0;
+const navStarts = new Map();
 
 function pushLog(rec) {
     LOGS.push(rec);
@@ -50,7 +51,6 @@ chrome.webRequest.onHeadersReceived.addListener(
 async function runChecks(record, type = 'request') {
     const failedChecks = [];
     const checkGroup = checks[type];
-    console.log('checks', checkGroup)
     for (const c of checkGroup) {
         const res = await c.check(record);
         if (res) failedChecks.push(res);
@@ -131,6 +131,31 @@ chrome.webRequest.onErrorOccurred.addListener(
     },
     {urls: ["<all_urls>"]}
 );
+
+chrome.webNavigation.onCommitted.addListener((details) => {
+    if (details.frameId === 0) { // nur main_frame
+        navStarts.set(details.tabId, Date.now());
+    }
+});
+
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    if (changeInfo.status === "complete" && /^https?:/.test(tab.url)) {
+        const duration = Date.now() - navStarts.get(tabId);
+        navStarts.delete(tabId);
+
+        const record = {
+            url: tab.url,
+            pageUrl: tab.url,
+            time: Date.now(),
+            tabId: tab.id,
+            duration,
+            type: 'main_frame',
+            method: 'GET',
+            requestCount
+        }
+        await runChecks(record, 'frame')
+    }
+});
 
 chrome.runtime.onMessage.addListener((msg, _s, sendResponse) => {
     if (msg?.type === "GET_LOGS") {
