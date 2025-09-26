@@ -35,7 +35,8 @@ export class CookieSecurityCheck {
         if (problems.length > 0) {
             return {
                 rule: this.name,
-                message: `Insecure cookie settings: ${problems.join(", ")}`
+                message: `Insecure cookie settings: ${problems.join(", ")}`,
+                group: 'security'
             };
         }
 

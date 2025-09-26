@@ -1,16 +1,16 @@
-import {StatusCodeCheck} from './network/general/StatusCodeCheck.js';
-import {SlowRequestCheck} from './network/general/SlowRequestCheck.js';
-import {LargeResponseCheck} from './network/general/LargeResponseCheck.js';
-import {InsecureRequestCheck} from "./network/http/InsecureRequestCheck.js";
-import {MissingCacheHeaderCheck} from "./network/http/MissingCacheHeaderCheck.js";
-import {Http11Check} from "./network/http/Http11Check.js";
-import {ApacheVersionCheck} from "./network/http/header/ApacheVersionCheck.js";
-import {FrameEmbeddingCheck} from "./network/security/FrameEmbeddingCheck.js";
-import {CookieSecurityCheck} from "./network/security/CookieSecurityCheck.js";
-import {StopWordCheck} from "./network/html/StopWordCheck.js";
+import {StatusCodeCheck} from './request/general/StatusCodeCheck.js';
+import {SlowRequestCheck} from './request/general/SlowRequestCheck.js';
+import {LargeResponseCheck} from './request/general/LargeResponseCheck.js';
+import {InsecureRequestCheck} from "./request/http/InsecureRequestCheck.js";
+import {MissingCacheHeaderCheck} from "./request/http/MissingCacheHeaderCheck.js";
+import {Http11Check} from "./request/http/Http11Check.js";
+import {ApacheVersionCheck} from "./request/http/header/ApacheVersionCheck.js";
+import {FrameEmbeddingCheck} from "./request/security/FrameEmbeddingCheck.js";
+import {CookieSecurityCheck} from "./request/security/CookieSecurityCheck.js";
+import {StopWordCheck} from "./request/html/StopWordCheck.js";
 
 export const checks = {
-    network: [
+    request: [
         new StatusCodeCheck(),
         new SlowRequestCheck(),
         new LargeResponseCheck(),

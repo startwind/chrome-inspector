@@ -4,6 +4,7 @@ import {checks} from "./checks/index.js";
 const MAX_LOGS = 2000;
 const LOGS = [];
 const ports = new Set();
+let requestCount = 0;
 
 function pushLog(rec) {
     LOGS.push(rec);
@@ -46,10 +47,11 @@ chrome.webRequest.onHeadersReceived.addListener(
     ["responseHeaders"]
 );
 
-async function runChecks(record) {
+async function runChecks(record, type = 'request') {
     const failedChecks = [];
-    const networkChecks = checks.network;
-    for (const c of networkChecks) {
+    const checkGroup = checks[type];
+    console.log('checks', checkGroup)
+    for (const c of checkGroup) {
         const res = await c.check(record);
         if (res) failedChecks.push(res);
     }
@@ -59,6 +61,7 @@ async function runChecks(record) {
 
 chrome.webRequest.onCompleted.addListener(
     async (d) => {
+        requestCount++
         const s = starts.get(d.requestId);
         const duration = s ? Date.now() - s.time : undefined;
 
@@ -149,6 +152,6 @@ chrome.runtime.onMessage.addListener((msg, _s, sendResponse) => {
             LOGS.length = 0;
         }
         sendResponse({success: true});
-        return;
+        requestCount = 0
     }
 });

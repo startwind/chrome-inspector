@@ -36,7 +36,8 @@ export class FrameEmbeddingCheck {
 
         return {
             severity: 'low',
-            message: "this website allows embedding in an iframe"
+            message: "this website allows embedding in an iframe",
+            group: 'security'
         };
     }
 };

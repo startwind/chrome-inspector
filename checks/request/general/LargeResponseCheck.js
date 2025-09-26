@@ -17,7 +17,11 @@ export class LargeResponseCheck {
             let message = `response size exceeds 1 MB (${(size / 1024 / 1024).toFixed(2)} MB)`;
             let severity = "medium";
 
-            return {message, severity};
+            return {
+                message,
+                severity,
+                group: 'performance'
+            };
         }
 
         return false;

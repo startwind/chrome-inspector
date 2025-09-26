@@ -21,7 +21,8 @@ export class StatusCodeCheck {
 
             return {
                 message,
-                severity: "high"
+                severity: "high",
+                group: 'performance'
             }
         }
         return false;

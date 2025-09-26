@@ -18,7 +18,8 @@ export class SlowRequestCheck {
 
             return {
                 message,
-                severity
+                severity,
+                group: 'performance'
             }
         }
         return false;
