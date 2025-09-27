@@ -2,6 +2,8 @@
 
 ## 1.2.0
 
+- UX:
+  - Added anomaly counter and request counter to footer
 - New checks:
   - **Frame/RequestCountCheck** - Checks if a website makes too many requests
 
