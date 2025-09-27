@@ -7,6 +7,7 @@ const filterSeverity = document.getElementById('filterSeverity');
 const filterThirdParty = document.getElementById('filterThirdParty');
 const preserveLog = document.getElementById('preserveLog');
 const statusEl = document.getElementById('status');
+const requestCountEl = document.getElementById('requestCount');
 const clearBtn = document.getElementById('clearBtn');
 
 let data = [];
@@ -28,6 +29,9 @@ port.onMessage.addListener((msg) => {
             data.push(msg.record);
             render(); // live update only findings
         }
+    }
+    if (msg?.type === 'COUNT_REQUESTS') {
+        requestCountEl.innerHTML = `<strong>${msg.requestCount}</strong> requests made`;
     }
 });
 

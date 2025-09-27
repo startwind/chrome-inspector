@@ -19,6 +19,15 @@ function pushLog(rec) {
     }
 }
 
+setInterval(() => {
+    for (const port of ports) {
+        try {
+            port.postMessage({type: "COUNT_REQUESTS", requestCount});
+        } catch {
+        }
+    }
+}, 1000)
+
 chrome.runtime.onConnect.addListener((port) => {
     ports.add(port);
     port.onDisconnect.addListener(() => ports.delete(port));
