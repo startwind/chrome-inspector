@@ -31,7 +31,7 @@ port.onMessage.addListener((msg) => {
         }
     }
     if (msg?.type === 'COUNT_REQUESTS') {
-        requestCountEl.innerHTML = `<strong>${msg.requestCount}</strong> requests made`;
+        requestCountEl.innerHTML = `${msg.requestCount} requests`;
     }
 });
 
@@ -41,7 +41,7 @@ chrome.devtools.network.onNavigated.addListener(async () => {
         await chrome.runtime.sendMessage({type: 'CLEAR_LOGS', filterTabId: currentTabId});
         data = [];
         render();
-    }else{
+    } else {
         await chrome.runtime.sendMessage({type: 'RESET_REQUEST_COUNT', filterTabId: currentTabId});
     }
 });
@@ -131,7 +131,11 @@ function render() {
         return okUrl && okMethod;
     }).sort((a, b) => b.time - a.time);
 
-    statusEl.innerHTML = `<strong>${rows.length}</strong> anomalies found`;
+    if (rows.length === 1) {
+        statusEl.innerHTML = `${rows.length} anomaly`;
+    } else {
+        statusEl.innerHTML = `${rows.length} anomalies`;
+    }
 
     const container = document.createElement('div');
     container.className = 'findingsBlock';

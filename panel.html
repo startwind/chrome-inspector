@@ -92,10 +92,29 @@
         }
 
         #status {
+
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 10px;
+            border-top: 1px solid #5E5E5E;
+            background: #202124;
+            z-index: 1000;
+        }
+
+        footer span {
             opacity: .7;
-            border-left: 2px solid #202124;
-            margin-left: 10px;
-            padding-left: 10px;
+            border-right: 1px solid #5E5E5E;
+            margin-right: 8px;
+            padding-right: 10px;
+            background: #202124;
+        }
+
+        footer span:last-child {
+            border-right: none;
         }
 
         .req-url {
@@ -258,6 +277,7 @@
 
         #list {
             margin-top: 60px;
+            margin-bottom: 40px;
         }
 
         .controls {
@@ -306,20 +326,22 @@
             Include third-party
         </label>
 
-        <span id="status"></span>
-        <span id="requestCount"></span>
-
         <div class="right" style="display: flex; align-items: center;">
             <label class="preserve">
                 <input type="checkbox" id="preserveLog"/> Preserve log
             </label>
-            <div id="clearBtn" style="cursor: pointer; margin-left: 3px; padding-left: 3px; border-left: 2px solid #202124;">
+            <div id="clearBtn"
+                 style="cursor: pointer; margin-left: 3px; padding-left: 3px; border-left: 2px solid #202124;">
                 clear
             </div>
         </div>
     </div>
 </div>
 <div id="list"></div>
+<footer style="">
+    <span id="requestCount">0 requests</span>
+    <span id="status"></span>
+</footer>
 <script src="panel.js"></script>
 </body>
 </html>
