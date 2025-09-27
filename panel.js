@@ -32,10 +32,13 @@ port.onMessage.addListener((msg) => {
 });
 
 // Clear on navigation when preserveLog is off
-chrome.devtools.network.onNavigated.addListener(() => {
+chrome.devtools.network.onNavigated.addListener(async () => {
     if (!preserveLog.checked) {
+        await chrome.runtime.sendMessage({type: 'CLEAR_LOGS', filterTabId: currentTabId});
         data = [];
         render();
+    }else{
+        await chrome.runtime.sendMessage({type: 'RESET_REQUEST_COUNT', filterTabId: currentTabId});
     }
 });
 
@@ -46,8 +49,6 @@ async function fetchInitial() {
 }
 
 function rowHtml(r, idx) {
-
-    console.log('record', r)
 
     const fails = r.failedChecks || [];
     const title = '<ul>' + fails.map(f => `<li class="finding-${f.severity}">${escapeHtml(f.message)}</li>`).join('') + '</ul>';
@@ -154,7 +155,6 @@ function render() {
 
 async function clear() {
     await chrome.runtime.sendMessage({type: 'CLEAR_LOGS', filterTabId: currentTabId});
-    console.log('clear')
     data = [];
     render();
 }

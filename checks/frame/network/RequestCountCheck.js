@@ -2,7 +2,7 @@ export class RequestCountCheck {
     name = "RequestCountCheck";
     severity = "medium";
 
-    maxRequests = 100;
+    maxRequests = 150;
 
     async check(record) {
         console.log('record', record)

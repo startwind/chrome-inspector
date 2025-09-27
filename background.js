@@ -72,14 +72,6 @@ chrome.webRequest.onCompleted.addListener(
             try {
                 const tab = await chrome.tabs.get(d.tabId);
                 pageUrl = tab.url;
-
-                if (d.type === 'main_frame') {
-                    const [result] = await chrome.scripting.executeScript({
-                        target: {tabId: tab.id, frameIds: [0]}, // frameId 0 = main_frame
-                        func: () => document.documentElement.outerHTML
-                    });
-                    content = result?.result ?? '';
-                }
             } catch (e) {
                 pageUrl = ''
             }
@@ -91,7 +83,6 @@ chrome.webRequest.onCompleted.addListener(
             statusCode: d.statusCode,
             type: d.type,
             time: s ? s.time : Date.now(),
-            content,
             duration,
             tabId: d.tabId,
             frameId: d.frameId,
@@ -143,6 +134,12 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
         const duration = Date.now() - navStarts.get(tabId);
         navStarts.delete(tabId);
 
+        const [result] = await chrome.scripting.executeScript({
+            target: {tabId, frameIds: [0]}, // frameId 0 = main_frame
+            func: () => document.documentElement.outerHTML
+        });
+        const content = result?.result ?? '';
+
         const record = {
             url: tab.url,
             pageUrl: tab.url,
@@ -151,32 +148,42 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
             duration,
             type: 'main_frame',
             method: 'GET',
-            requestCount
+            requestCount,
+            content
         }
         await runChecks(record, 'frame')
     }
 });
 
-chrome.runtime.onMessage.addListener((msg, _s, sendResponse) => {
-    if (msg?.type === "GET_LOGS") {
-        let logs = [...LOGS];
-        if (typeof msg.filterTabId === "number") {
-            logs = logs.filter(r => r && r.tabId === msg.filterTabId);
-        }
-        logs.sort((a, b) => b.time - a.time);
-        sendResponse({success: true, logs});
-        return;
-    }
-    if (msg?.type === "CLEAR_LOGS") {
-        // optional: tab-scoped clear
-        if (typeof msg.filterTabId === "number") {
-            for (let i = LOGS.length - 1; i >= 0; i--) {
-                if (LOGS[i]?.tabId === msg.filterTabId) LOGS.splice(i, 1);
+chrome.runtime.onMessage.addListener(async (msg, sender) => {
+    switch (msg?.type) {
+        case "GET_LOGS": {
+            let logs = [...LOGS];
+            if (typeof msg.filterTabId === "number") {
+                logs = logs.filter(r => r && r.tabId === msg.filterTabId);
             }
-        } else {
-            LOGS.length = 0;
+            logs.sort((a, b) => b.time - a.time);
+            return {success: true, logs};
         }
-        sendResponse({success: true});
-        requestCount = 0
+
+        case "CLEAR_LOGS": {
+            if (typeof msg.filterTabId === "number") {
+                for (let i = LOGS.length - 1; i >= 0; i--) {
+                    if (LOGS[i]?.tabId === msg.filterTabId) LOGS.splice(i, 1);
+                }
+            } else {
+                LOGS.length = 0;
+            }
+            requestCount = 0;
+            return {success: true};
+        }
+
+        case "CLEAR_REQUEST_COUNT": {
+            requestCount = 0;
+            return {success: true};
+        }
+
+        default:
+            return {success: false, error: "Unknown message type"};
     }
 });

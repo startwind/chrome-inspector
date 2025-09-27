@@ -29,7 +29,7 @@ export class StopWordCheck {
 
             if (uniqueWords.length > 0) {
                 return {
-                    message: `website could be hacked: found stop words (${uniqueWords.join(", ")})`,
+                    message: `website could be hacked: found suspicious words (${uniqueWords.join(", ")})`,
                     severity: this.severity,
                     group: 'security'
                 };
