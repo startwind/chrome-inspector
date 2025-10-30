@@ -5,7 +5,8 @@
 - UX:
   - Added anomaly counter and request counter to footer
 - New checks:
-  - **Frame/RequestCountCheck** - Checks if a website makes too many requests
+  - **Frame/RequestCountCheck** - Checks if a website makes too many requests.
+  - **Performance/DuplicateRequestCheck** - Checks if a request is done multiple times.
 
 ## 1.1.0
 
