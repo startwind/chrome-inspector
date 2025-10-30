@@ -10,9 +10,10 @@ quickly identify and address performance or security problems without having to 
 
 ![Dev Tools Panel](docs/dev-tools.png)
 
-## Changelog
+## Changelog & Ideas
 
-See [changelog](docs/changelog.md)
+- See [changelog](docs/changelog.md)
+- See [ideas](docs/ideas.md)
 
 ## Rules
 

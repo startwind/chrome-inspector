@@ -1,0 +1,30 @@
+name: chrome website audit - extension
+description: >
+  This builder will create a new check for the chrome website audit extension.
+language: javascript
+input:
+  severity:
+    value: low|medium|high
+    description: severity of the finding
+  message:
+    value: string
+    description: message to display
+  group:
+    value: technical|security|performance|seo
+    description: group of the finding
+  description:
+    value: string
+    description: What should be found with this check?
+prompt: >
+  Lorem ipsum dolor sit amet, consetetur {severity} elitr, sed diam nonumy return {message} 
+  tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et 
+  accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus 
+  est Lorem ipsum dolor sit amet.
+coding-standard: psr-4
+examples:
+  - /checks/frame/network/RequestCountCheck.js
+  - /checks/request/general/StatusCodeCheck.js
+  - /checks/request/http/InsecureRequestCheck.js
+run:
+  post:
+    - add the created file to /checks/index.js

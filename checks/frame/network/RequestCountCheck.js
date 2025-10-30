@@ -5,7 +5,6 @@ export class RequestCountCheck {
     maxRequests = 150;
 
     async check(record) {
-        console.log('record', record)
         if (record.requestCount > this.maxRequests) {
             return {
                 message: `website makes ${record.requestCount} requests`,

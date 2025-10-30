@@ -9,6 +9,7 @@ import {FrameEmbeddingCheck} from "./request/security/FrameEmbeddingCheck.js";
 import {CookieSecurityCheck} from "./request/security/CookieSecurityCheck.js";
 import {StopWordCheck} from "./frame/security/StopWordCheck.js";
 import {RequestCountCheck} from "./frame/network/RequestCountCheck.js";
+import {DuplicateRequestCheck} from "./request/performance/DuplicateRequestCheck.js";
 
 export const checks = {
     request: [
@@ -25,6 +26,9 @@ export const checks = {
         // security
         new FrameEmbeddingCheck(),
         new CookieSecurityCheck(),
+
+        // performance
+        new DuplicateRequestCheck()
     ],
     frame: [
         // network
